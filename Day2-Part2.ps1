@@ -1,4 +1,4 @@
-﻿$fileContent = Get-Content -Path $PSScriptRoot/ProductIDs.txt
+$fileContent = Get-Content -Path $PSScriptRoot/ProductIDs.txt
 $count = 0
 
 #Seperate out the lines by comma
@@ -6,11 +6,13 @@ foreach ($line in $fileContent -split ",")
 {
     $splitLine = $line.Split("-")
     
+    #for each ID in the range
     for ($id = [double]$splitLine[0]; $id -le [double]$splitLine[1]; $id++)
     {
         $stringID = [string]$id
         $valid = $true               
-
+        
+        #loop through each length up until half
         for($i = 1; $i -lt $stringID.Length; $i++)
         {
             # only check lengths that divide evenly
@@ -36,7 +38,7 @@ foreach ($line in $fileContent -split ",")
             }
         }
 
-        # If no repeating pattern found
+        # If repeating pattern found and its valid
         if($valid -eq $false) 
         {
             $count += $id
